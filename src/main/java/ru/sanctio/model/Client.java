@@ -10,7 +10,7 @@ public class Client implements Serializable {
     private int clientId;
     private String clientName;
     private String type;
-    private LocalDate added;
+    private String added;
     private final List<Address> addresses = new ArrayList<>();
 
     public Client() {
@@ -65,12 +65,13 @@ public class Client implements Serializable {
 
     public String getAdded() {
         if (added == null) {
-            added = LocalDate.now();
+            added = LocalDate.now().toString();
 //            LocalDate date = LocalDate.now();
 //            added = Date.valueOf(date);
         }
 //        return added.toLocalDate().toString();
-        return added.toString();
+//        return added.toString();
+        return added;
     }
 
     public void setAdded(String date) {
@@ -78,7 +79,7 @@ public class Client implements Serializable {
         if (localDate.isBefore(LocalDate.EPOCH) || localDate.isAfter(LocalDate.now()))
             throw new IllegalArgumentException("You entered an incorrect year");
 //        this.added = Date.valueOf(localDate);
-        this.added = localDate;
+        this.added = date;
 //        this.added = Date.valueOf(date);
     }
 

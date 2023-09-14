@@ -1,6 +1,8 @@
-package ru.sanctio.dao;
+package ru.sanctio.dao.impl;
 
 import jakarta.ejb.Singleton;
+import ru.sanctio.dao.DBManagerUser;
+import ru.sanctio.dao.DataSource;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

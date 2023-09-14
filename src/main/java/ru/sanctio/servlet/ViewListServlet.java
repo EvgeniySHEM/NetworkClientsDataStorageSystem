@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import ru.sanctio.model.Address;
+import ru.sanctio.model.dto.AddressDTO;
 import ru.sanctio.model.dto.ClientDTO;
 import ru.sanctio.service.SelectService;
 
@@ -34,7 +35,7 @@ public class ViewListServlet extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        List<Address> filteredList = selectService.getSortedData();
+        List<AddressDTO> filteredList = selectService.getSortedData();
 
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
@@ -55,25 +56,22 @@ public class ViewListServlet extends HttpServlet {
         out.println("<th></th>");
         out.println("<th></th>");
         out.println("</tr>");
-        for (Address address : filteredList) {
+        for (AddressDTO address : filteredList) {
             out.println("<tr>");
-            out.println("<td>" + address.getClient().getClientId() + "</td>");
-            out.println("<td>" + address.getClient().getClientName() + "</td>");
-            out.println("<td>" + address.getClient().getType() + "</td>");
-            out.println("<td>" + address.getClient().getAdded() + "</td>");
-            out.println("<td>" + address.getIp() + "</td>");
-            out.println("<td>" + address.getMac() + "</td>");
-            out.println("<td>" + address.getModel() + "</td>");
-            out.println("<td>" + address.getAddress() + "</td>");
+            out.println("<td>" + address.client().clientId() + "</td>");
+            out.println("<td>" + address.client().clientName() + "</td>");
+            out.println("<td>" + address.client().type() + "</td>");
+            out.println("<td>" + address.client().added() + "</td>");
+            out.println("<td>" + address.ip() + "</td>");
+            out.println("<td>" + address.mac() + "</td>");
+            out.println("<td>" + address.model() + "</td>");
+            out.println("<td>" + address.address() + "</td>");
             out.println("<td><form action=\"UpdateServlet\" method=\"get\" align=\"center\">");
-            out.println("<input type=\"hidden\" name=\"addressId\" value=\"" + address.getId() + "\">");
+            out.println("<input type=\"hidden\" name=\"addressId\" value=\"" + address.id() + "\">");
             out.println("<input type=\"submit\" value=\"Update\"></form></td>");
             out.println("<td><form action=\"Delete\" method=\"get\" align=\"center\">");
-            out.println("<input type=\"hidden\" name=\"addressId\" value=\"" + address.getId() + "\">");
+            out.println("<input type=\"hidden\" name=\"addressId\" value=\"" + address.id() + "\">");
             out.println("<input type=\"submit\" value=\"Delete\"></form></td>");
-            out.println("<td><form action=\"AddClientAddress.jsp\" method=\"get\" align=\"center\">");
-            out.println("<input type=\"hidden\" name=\"hidden\" value=\"" + address.getClient().getClientId() + "\">");
-            out.println("<input type=\"submit\" value=\"Add address\"></form></td>");
             out.println("</tr>");
         }
         out.println("</table>");

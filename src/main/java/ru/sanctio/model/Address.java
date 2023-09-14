@@ -24,7 +24,11 @@ public class Address {
     }
 
     public Address(int id, String ip, String mac, String model, String address, Client client) {
-        this(ip, mac, model, address);
+        setId(id);
+        setIp(ip);
+        setMac(mac);
+        setModel(model);
+        setAddress(address);
         setClient(client);
     }
 

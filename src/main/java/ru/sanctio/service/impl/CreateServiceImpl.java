@@ -17,9 +17,6 @@ public class CreateServiceImpl implements CreateService {
     @EJB
     private DBManagerCreate dbManagerCreate;
 
-//    private AddressDTOMapper addressDTOMapper;
-//    private ClientDTOMapper clientDTOMapper;
-    
     @Override
     public boolean addClientAddress(Address newAddress, String clientId) {
         return false;
@@ -30,11 +27,6 @@ public class CreateServiceImpl implements CreateService {
         Client newClient = ClientDTOMapper.INSTANCE.mapToEntity(clientDTO);
         Address newAddress = AddressDTOMapper.INSTANCE.mapToEntity(addressDTO);
         newClient.addAddress(newAddress);
-        dbManagerCreate.createNewClient(newClient, newAddress);
-
-
-
-
-        return false;
+        return dbManagerCreate.createNewClient(newClient, newAddress);
     }
 }

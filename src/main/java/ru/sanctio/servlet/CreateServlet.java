@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import ru.sanctio.model.Address;
-import ru.sanctio.model.Client;
 import ru.sanctio.model.dto.AddressDTO;
 import ru.sanctio.model.dto.ClientDTO;
 import ru.sanctio.service.CreateService;
@@ -30,7 +29,7 @@ public class CreateServlet extends HttpServlet {
 
         Address newAddress = null;
         try {
-            newAddress = new Address(ip, mac, model, address);
+            newAddress = new Address(0, ip, mac, model, address, null);
         } catch (NullPointerException | IllegalArgumentException ex) {
             response.sendError(490, ex.getMessage());
         }
@@ -48,14 +47,16 @@ public class CreateServlet extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        ClientDTO clientDTO = new ClientDTO(request.getParameter("clientName"),
+        ClientDTO clientDTO = new ClientDTO(0,
+                request.getParameter("clientName"),
                 request.getParameter("select"),
                 request.getParameter("date"));
 
-        AddressDTO addressDTO = new AddressDTO(request.getParameter("ip"),
+        AddressDTO addressDTO = new AddressDTO(0, request.getParameter("ip"),
                 request.getParameter("mac"),
                 request.getParameter("model"),
-                request.getParameter("address"));
+                request.getParameter("address"),
+                clientDTO);
 
         try {
             if (createService.createNewClient(clientDTO, addressDTO)) {
@@ -67,27 +68,5 @@ public class CreateServlet extends HttpServlet {
         } catch (NullPointerException | IllegalArgumentException ex) {
             response.sendError(490, ex.getMessage());
         }
-//            if (createService.createNewClient(newClient, newAddress)) {
-//                response.sendRedirect("ViewListServlet");
-//            } else {
-//                response.sendError(490, "Клиент с таким адресом уже есть в базе данных");
-//            }
-
-//        Client newClient = null;
-//        Address newAddress = null;
-//        try {
-//            newClient = new Client(clientName, selectType, date);
-//            newAddress = new Address(ip, mac, model, address);
-//            newClient.addAddress(newAddress);
-//        } catch (NullPointerException | IllegalArgumentException ex) {
-//            response.sendError(490, ex.getMessage());
-//        }
-//        if (!response.isCommitted()) {
-//            if (createService.createNewClient(newClient, newAddress)) {
-//                response.sendRedirect("ViewListServlet");
-//            } else {
-//                response.sendError(490, "Клиент с таким адресом уже есть в базе данных");
-//            }
-//        }
     }
 }

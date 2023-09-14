@@ -8,4 +8,6 @@ import java.util.List;
 @Local
 public interface DBManagerSelect {
     List<Address> getAllInformation();
+
+    Address selectAddressById(String addressId);
 }
