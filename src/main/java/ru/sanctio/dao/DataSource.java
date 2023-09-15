@@ -8,16 +8,12 @@ import java.sql.SQLException;
 
 public class DataSource {
 
-    private static HikariConfig config = new HikariConfig();
+    private static HikariConfig config = new HikariConfig(
+            "/Users/evgeniysharychenkov/IdeaProjects/NetworkClientsDataStorageSystem" +
+                    "/src/main/resources/db.properties");
     private static HikariDataSource ds;
 
     static {
-        config.setJdbcUrl("jdbc:postgresql://localhost:5432/jakarta");
-        config.setUsername("evgeniysharychenkov");
-        config.setDriverClassName("org.postgresql.Driver");
-        config.addDataSourceProperty("cachePrepStmts", "true");
-        config.addDataSourceProperty("prepStmtCacheSize", "250");
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
         ds = new HikariDataSource(config);
     }
 
