@@ -19,30 +19,6 @@ public class CreateServlet extends HttpServlet {
     private CreateService createService;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html; charset=UTF-8");
-        String clientId = request.getParameter("clientId");
-        String ip = request.getParameter("ip");
-        String mac = request.getParameter("mac");
-        String model = request.getParameter("model");
-        String address = request.getParameter("address");
-
-        Address newAddress = null;
-        try {
-            newAddress = new Address(0, ip, mac, model, address, null);
-        } catch (NullPointerException | IllegalArgumentException ex) {
-            response.sendError(490, ex.getMessage());
-        }
-        if (!response.isCommitted()) {
-            if (createService.addClientAddress(newAddress, clientId)) {
-                response.sendRedirect("ViewListServlet");
-            } else {
-                response.sendError(490, "Такой адрес уже есть в базе данных");
-            }
-        }
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");

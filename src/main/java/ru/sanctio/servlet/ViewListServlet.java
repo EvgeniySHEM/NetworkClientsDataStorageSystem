@@ -54,7 +54,6 @@ public class ViewListServlet extends HttpServlet {
         out.println("<th>address</th>");
         out.println("<th></th>");
         out.println("<th></th>");
-        out.println("<th></th>");
         out.println("</tr>");
         for (AddressDTO address : filteredList) {
             out.println("<tr>");
@@ -69,7 +68,7 @@ public class ViewListServlet extends HttpServlet {
             out.println("<td><form action=\"UpdateServlet\" method=\"get\" align=\"center\">");
             out.println("<input type=\"hidden\" name=\"addressId\" value=\"" + address.id() + "\">");
             out.println("<input type=\"submit\" value=\"Update\"></form></td>");
-            out.println("<td><form action=\"Delete\" method=\"get\" align=\"center\">");
+            out.println("<td><form action=\"Delete\" method=\"delete\" align=\"center\">");
             out.println("<input type=\"hidden\" name=\"addressId\" value=\"" + address.id() + "\">");
             out.println("<input type=\"submit\" value=\"Delete\"></form></td>");
             out.println("</tr>");

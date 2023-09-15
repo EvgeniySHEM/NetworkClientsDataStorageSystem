@@ -8,8 +8,6 @@ import ru.sanctio.model.dto.ClientDTO;
 
 @Local
 public interface CreateService {
-    boolean addClientAddress(Address newAddress, String clientId);
-
     boolean createNewClient(ClientDTO clientDTO, AddressDTO addressDTO);
 
 }

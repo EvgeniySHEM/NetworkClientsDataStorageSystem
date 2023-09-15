@@ -25,7 +25,7 @@ public class DBManagerSelectImpl implements DBManagerSelect {
         }
     }
 
-    private static List<Address> readAddressesFromResultSet(ResultSet resultSet) throws SQLException {
+    public List<Address> readAddressesFromResultSet(ResultSet resultSet) throws SQLException {
         List<Address> res = new ArrayList<>();
         while (resultSet.next()) {
             res.add(new Address(resultSet.getInt(1), resultSet.getString(2),

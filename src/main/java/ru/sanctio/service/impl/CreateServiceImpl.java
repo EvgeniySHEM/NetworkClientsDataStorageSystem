@@ -18,11 +18,6 @@ public class CreateServiceImpl implements CreateService {
     private DBManagerCreate dbManagerCreate;
 
     @Override
-    public boolean addClientAddress(Address newAddress, String clientId) {
-        return false;
-    }
-
-    @Override
     public boolean createNewClient(ClientDTO clientDTO, AddressDTO addressDTO) {
         Client newClient = ClientDTOMapper.INSTANCE.mapToEntity(clientDTO);
         Address newAddress = AddressDTOMapper.INSTANCE.mapToEntity(addressDTO);
