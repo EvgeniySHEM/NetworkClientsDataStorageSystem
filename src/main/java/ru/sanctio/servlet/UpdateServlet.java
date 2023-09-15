@@ -6,8 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import ru.sanctio.model.Address;
 import ru.sanctio.model.dto.AddressDTO;
+import ru.sanctio.model.dto.ClientDTO;
 import ru.sanctio.service.UpdateService;
 
 import java.io.IOException;
@@ -32,11 +32,24 @@ public class UpdateServlet extends HttpServlet {
         getServletContext().getRequestDispatcher("/UpdateClient.jsp").forward(request, response);
     }
 
-//    @Override
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        response.setContentType("text/html; charset=UTF-8");
-//        request.setCharacterEncoding("UTF-8");
-//
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
+        ClientDTO clientDTO = new ClientDTO(Integer.parseInt(request.getParameter("clientId")),
+                request.getParameter("clientName"),
+                request.getParameter("type"),
+                request.getParameter("date"));
+
+        AddressDTO addressDTO = new AddressDTO(Integer.parseInt(request.getParameter("addressId")),
+                request.getParameter("ip"),
+                request.getParameter("mac"),
+                request.getParameter("model"),
+                request.getParameter("address"),
+                clientDTO);
+
+
 //        String clientId = request.getParameter("clientId");
 //        String addressId = request.getParameter("addressId");
 //        String clientName = request.getParameter("clientName");
@@ -46,7 +59,18 @@ public class UpdateServlet extends HttpServlet {
 //        String mac = request.getParameter("mac");
 //        String model = request.getParameter("model");
 //        String address = request.getParameter("address");
-//
+
+        try {
+            if (updateService.updateClient(clientDTO, addressDTO)) {
+                response.sendRedirect("ViewListServlet");
+            } else {
+                response.sendError(490, "Клиент с таким адресом уже есть в базе данных");
+            }
+
+        } catch (NullPointerException | IllegalArgumentException ex) {
+            response.sendError(490, ex.getMessage());
+        }
+
 //        ClientEntity client = null;
 //        AddressEntity addressEntity = null;
 //        try {
@@ -63,5 +87,5 @@ public class UpdateServlet extends HttpServlet {
 //                response.sendError(490, "Клиент с таким адресом уже есть в базе данных");
 //            }
 //        }
-//    }
+    }
 }
