@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AuthorizationServletTest {
-    private final static String servlet = "/ViewListServlet";
+    private final static String SERVLET = "/ViewListServlet";
 
     @InjectMocks
     private AuthorizationServlet authorizationServlet;
@@ -33,11 +33,11 @@ class AuthorizationServletTest {
     @Test
     void doPost_servletForwardViewListServlet() throws ServletException, IOException {
         when(userService.checkUser(any(), any())).thenReturn(true);
-        when(request.getRequestDispatcher(servlet)).thenReturn(requestDispatcher);
+        when(request.getRequestDispatcher(SERVLET)).thenReturn(requestDispatcher);
 
         authorizationServlet.doPost(request, response);
 
-        verify(request, times(1)).getRequestDispatcher(servlet);
+        verify(request, times(1)).getRequestDispatcher(SERVLET);
         verify(requestDispatcher).forward(request, response);
     }
 

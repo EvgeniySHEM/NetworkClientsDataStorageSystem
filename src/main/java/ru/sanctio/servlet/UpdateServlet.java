@@ -25,11 +25,10 @@ public class UpdateServlet extends HttpServlet {
         String addressId = request.getParameter("addressId");
 
         AddressDTO address = updateService.selectAddress(addressId);
-        System.out.println(address);
 
         request.setAttribute("address", address);
 
-        getServletContext().getRequestDispatcher("/UpdateClient.jsp").forward(request, response);
+        request.getRequestDispatcher("/UpdateClient.jsp").forward(request, response);
     }
 
     @Override
@@ -49,17 +48,6 @@ public class UpdateServlet extends HttpServlet {
                 request.getParameter("address"),
                 clientDTO);
 
-
-//        String clientId = request.getParameter("clientId");
-//        String addressId = request.getParameter("addressId");
-//        String clientName = request.getParameter("clientName");
-//        String type = request.getParameter("type");
-//        String date = request.getParameter("date");
-//        String ip = request.getParameter("ip");
-//        String mac = request.getParameter("mac");
-//        String model = request.getParameter("model");
-//        String address = request.getParameter("address");
-
         try {
             if (updateService.updateClient(clientDTO, addressDTO)) {
                 response.sendRedirect("ViewListServlet");
@@ -70,22 +58,5 @@ public class UpdateServlet extends HttpServlet {
         } catch (NullPointerException | IllegalArgumentException ex) {
             response.sendError(490, ex.getMessage());
         }
-
-//        ClientEntity client = null;
-//        AddressEntity addressEntity = null;
-//        try {
-//            client = new ClientEntity(Integer.parseInt(clientId),clientName,type,date);
-//            addressEntity = new AddressEntity(Integer.parseInt(addressId),ip,mac,model,address);
-//            client.addAddress(addressEntity);
-//        } catch (NullPointerException | IllegalArgumentException ex) {
-//            response.sendError(490, ex.getMessage());
-//        }
-//        if(!response.isCommitted()) {
-//            if(updateBean.update(client, addressEntity)) {
-//                response.sendRedirect("ViewListServlet");
-//            } else {
-//                response.sendError(490, "Клиент с таким адресом уже есть в базе данных");
-//            }
-//        }
     }
 }
