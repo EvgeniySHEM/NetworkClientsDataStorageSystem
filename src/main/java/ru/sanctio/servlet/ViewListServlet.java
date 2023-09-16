@@ -6,14 +6,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import ru.sanctio.model.Address;
 import ru.sanctio.model.dto.AddressDTO;
-import ru.sanctio.model.dto.ClientDTO;
 import ru.sanctio.service.SelectService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "ViewListServlet", value = "/ViewListServlet")
