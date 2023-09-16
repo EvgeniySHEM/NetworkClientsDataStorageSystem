@@ -48,9 +48,8 @@ public class Client implements Serializable {
         if (clientName.matches("^[а-яёА-ЯЁ{\\-\\s,.}]+$")) {
             this.clientName = clientName;
         } else {
-            throw new IllegalArgumentException("For the client name field, it is allowed\n" +
-                    "to use only the Russian alphabet, as well\n" +
-                    "as the characters {- ,.}");
+            throw new IllegalArgumentException("For the client name field, it is allowed " +
+                    "to use only the Russian alphabet, as well as the characters {- ,.}");
         }
     }
 
