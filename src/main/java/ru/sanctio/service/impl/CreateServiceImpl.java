@@ -21,7 +21,7 @@ public class CreateServiceImpl implements CreateService {
     public boolean createNewClient(ClientDTO clientDTO, AddressDTO addressDTO) {
         Client newClient = ClientDTOMapper.INSTANCE.mapToEntity(clientDTO);
         Address newAddress = AddressDTOMapper.INSTANCE.mapToEntity(addressDTO);
-        newClient.addAddress(newAddress);
+
         return dbManagerCreate.createNewClient(newClient, newAddress);
     }
 }
