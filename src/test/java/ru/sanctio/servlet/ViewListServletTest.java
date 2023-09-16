@@ -37,6 +37,7 @@ class ViewListServletTest {
 
     @Test
     void doPost() throws ServletException, IOException {
+
         when(response.getWriter()).thenReturn(new PrintWriter("test.txt"));
 
         viewListServlet.doPost(request, response);
