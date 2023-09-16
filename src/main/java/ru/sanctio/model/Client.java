@@ -66,11 +66,7 @@ public class Client implements Serializable {
     public String getAdded() {
         if (added == null) {
             added = LocalDate.now().toString();
-//            LocalDate date = LocalDate.now();
-//            added = Date.valueOf(date);
         }
-//        return added.toLocalDate().toString();
-//        return added.toString();
         return added;
     }
 
@@ -78,9 +74,7 @@ public class Client implements Serializable {
         LocalDate localDate = LocalDate.parse(date);
         if (localDate.isBefore(LocalDate.EPOCH) || localDate.isAfter(LocalDate.now()))
             throw new IllegalArgumentException("You entered an incorrect year");
-//        this.added = Date.valueOf(localDate);
         this.added = date;
-//        this.added = Date.valueOf(date);
     }
 
     public List<Address> getAddresses() {

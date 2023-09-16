@@ -19,6 +19,8 @@
     <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
     <jakarta.ejb-api.version>4.0.1</jakarta.ejb-api.version>
     <HikariCP.version>5.0.1</HikariCP.version>
+    <mockito-core.version>5.5.0</mockito-core.version>
+    <mockito-junit-jupiter.version>5.5.0</mockito-junit-jupiter.version>
   </properties>
 
   <dependencies>
@@ -52,6 +54,18 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>${junit-jupiter-api.version}</version>
+      <scope>test</scope>
+    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.mockito</groupId>-->
+<!--      <artifactId>mockito-core</artifactId>-->
+<!--      <version>${mockito-core.version}</version>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>${mockito-junit-jupiter.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
