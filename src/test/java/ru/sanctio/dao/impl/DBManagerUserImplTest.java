@@ -3,7 +3,6 @@ package ru.sanctio.dao.impl;
 import com.zaxxer.hikari.HikariConfig;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -35,13 +34,13 @@ class DBManagerUserImplTest {
         dbManagerUser = new DBManagerUserImpl();
 
         config = new HikariConfig();
-        config.setJdbcUrl( postgres.getJdbcUrl() );
-        config.setUsername( postgres.getUsername() );
+        config.setJdbcUrl(postgres.getJdbcUrl());
+        config.setUsername(postgres.getUsername());
         config.setDriverClassName("org.postgresql.Driver");
-        config.setPassword(postgres.getPassword() );
-        config.addDataSourceProperty( "cachePrepStmts" , "true" );
-        config.addDataSourceProperty( "prepStmtCacheSize" , "250" );
-        config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
+        config.setPassword(postgres.getPassword());
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
         DataSource.setDs(config);
 
         try {

@@ -96,7 +96,7 @@ public class DBManagerCreateImpl implements DBManagerCreate {
     private Optional<Address> findAddressNotById(Address newAddress) {
         try (Connection con = DataSource.getConnection();
              PreparedStatement preparedStatement = con.prepareStatement("select a.id, a.ip, a.mac, " +
-                     "a.model, a.address, a.clientid  from address as a " +
+                     "a.model, a.address from address as a " +
                      "where ip = ? and mac = ? and model = ? and address = ?")) {
             preparedStatement.setString(1, newAddress.getIp());
             preparedStatement.setString(2, newAddress.getMac());
@@ -109,10 +109,7 @@ public class DBManagerCreateImpl implements DBManagerCreate {
                 if (resultSet.next()) {
                     addresses.add(new Address(resultSet.getInt(1), resultSet.getString(2),
                             resultSet.getString(3), resultSet.getString(4),
-                            resultSet.getString(5),
-                            new Client(resultSet.getInt(6), resultSet.getString(7),
-                                    resultSet.getString(8),
-                                    resultSet.getDate(9).toLocalDate().toString())));
+                            resultSet.getString(5)));
                     return Optional.of(addresses.get(0));
                 } else {
                     return Optional.empty();
