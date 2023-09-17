@@ -21,7 +21,11 @@ public class DBManagerDeleteImpl implements DBManagerDelete {
     @Override
     public void deleteAddressById(String addressId) {
         Address address = dbManagerSelect.selectAddressById(addressId);
-        int clientId = address.getClient().getClientId();
+        int clientId = -1;
+
+        if(address != null) {
+            clientId = address.getClient().getClientId();
+        }
 
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement =
@@ -40,6 +44,9 @@ public class DBManagerDeleteImpl implements DBManagerDelete {
     }
 
     private boolean checkAddressByClientId(int clientId) {
+        if(clientId == -1) {
+            return true;
+        }
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement =
                      connection.prepareStatement("SELECT * FROM address WHERE clientId = ?")) {
