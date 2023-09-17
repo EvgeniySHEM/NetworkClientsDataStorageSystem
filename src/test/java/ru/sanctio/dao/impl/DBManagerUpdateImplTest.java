@@ -61,14 +61,6 @@ class DBManagerUpdateImplTest {
         }
     }
 
-    @Test
-    void getInf() {
-        System.out.println(postgres.isRunning());
-        System.out.println(postgres.getJdbcUrl());
-        System.out.println(postgres.getDatabaseName());
-        System.out.println(postgres.getUsername());
-    }
-
     @BeforeEach
     void createClientAndAddress() {
             client = new Client(1,"Паша", "Физическое лицо", "2023-05-13");
