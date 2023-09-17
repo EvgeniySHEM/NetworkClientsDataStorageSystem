@@ -16,7 +16,7 @@ class DBManagerUserImplTest {
     private DBManagerUserImpl dbManagerUser;
 
     @Container
-    PostgreSQLContainer<?> postgres =
+    static PostgreSQLContainer<?> postgres =
             new PostgreSQLContainer<>(DockerImageName.parse("postgres:9.6.12"))
                     .withDatabaseName("jakarta")
                     .withUsername("evgeniysharychenkov");
