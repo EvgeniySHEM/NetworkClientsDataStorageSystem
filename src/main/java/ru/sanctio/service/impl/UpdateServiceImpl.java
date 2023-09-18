@@ -23,15 +23,13 @@ public class UpdateServiceImpl implements UpdateService {
     @Override
     public AddressDTO selectAddress(String addressId) {
         Address address = dbManagerSelect.selectAddressById(addressId);
-        AddressDTO addressDTO = AddressDTOMapper.INSTANCE.mapToDto(address);
-        return addressDTO;
+        return AddressDTOMapper.INSTANCE.mapToDto(address);
     }
 
     @Override
     public boolean updateClient(ClientDTO clientDTO, AddressDTO addressDTO) {
         Client newClient = ClientDTOMapper.INSTANCE.mapToEntity(clientDTO);
         Address newAddress = AddressDTOMapper.INSTANCE.mapToEntity(addressDTO);
-//        newClient.addAddress(newAddress);
         return dbManagerUpdate.update(newClient, newAddress);
     }
 }

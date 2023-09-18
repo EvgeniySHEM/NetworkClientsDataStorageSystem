@@ -5,8 +5,10 @@ import jakarta.ejb.Stateless;
 import ru.sanctio.dao.DBManagerUser;
 import ru.sanctio.service.UserService;
 
+import java.io.Serializable;
+
 @Stateless
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, Serializable {
 
     @EJB
     private DBManagerUser dbManagerUser;

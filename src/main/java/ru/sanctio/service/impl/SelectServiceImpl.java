@@ -25,7 +25,6 @@ public class SelectServiceImpl implements SelectService {
     public List<AddressDTO> getSortedData() {
         List<Address> list = getData();
         list.sort((a, b) -> a.getClient().getClientId() - b.getClient().getClientId());
-        List<AddressDTO> dtoList = AddressDTOMapper.INSTANCE.mapToDtoList(list);
-        return dtoList;
+        return AddressDTOMapper.INSTANCE.mapToDtoList(list);
     }
 }
