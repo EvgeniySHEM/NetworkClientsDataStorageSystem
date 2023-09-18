@@ -85,6 +85,21 @@ class ClientTest {
     }
 
     @Test
+    void getAdded_ShouldReturnLocalDateNow() {
+        Client client1 = new Client(2, "Петр", "Физическое лицо", null);
+
+        assertEquals(LocalDate.now().toString(), client1.getAdded());
+    }
+
+    @Test
+    void setAdded_ShouldReturnLocalDateNow() {
+        String added = null;
+        client.setAdded(added);
+
+        assertEquals(LocalDate.now().toString(), client.getAdded());
+    }
+
+    @Test
     void setAdded() {
         String added = "2023-05-13";
         client.setAdded(added);
@@ -112,5 +127,76 @@ class ClientTest {
                 assertThrows(IllegalArgumentException.class, () -> client.setAdded(added));
 
         assertEquals(message, exception.getMessage());
+    }
+
+    @Test
+    void testEquals_ShouldReturnTrue() {
+        Client client1 = new Client(1, "Петр", "Физическое лицо", "2023-05-13");
+
+        assertEquals(client, client1);
+    }
+
+    @Test
+    void testEquals_ShouldReturnTrue2() {
+
+        assertEquals(client, client);
+    }
+
+    @Test
+    void testEquals_ShouldReturnFalse() {
+        Client client1 = new Client(2, "Макс", "Юридическое лицо", "2023-05-11");
+
+        assertNotEquals(client, client1);
+    }
+
+    @Test
+    void testEquals_ShouldReturnFalseIfClientNull() {
+        Client client1 = null;
+
+        assertNotEquals(client, client1);
+    }
+
+    @Test
+    void testHashCode_ShouldReturnTrue() {
+        Client client1 = new Client(1, "Петр", "Физическое лицо", "2023-05-13");
+
+        assertTrue(client.hashCode() == client1.hashCode());
+    }
+
+    @Test
+    void testHashCode_ShouldReturnFalse() {
+        Client client1 = new Client(2, "Петр", "Физическое лицо", "2023-05-11");
+
+        assertFalse(client.hashCode() == client1.hashCode());
+    }
+
+    @Test
+    void testToString_ShouldReturnTrue() {
+        Client client1 = new Client(1, "Петр", "Физическое лицо", "2023-05-13");
+
+        assertTrue(client.toString().equals(client1.toString()));
+    }
+
+    @Test
+    void testToString_ShouldReturnFalse() {
+        Client client1 = new Client(2, "Петр", "Физическое лицо", "2023-05-11");
+
+        assertFalse(client.toString().equals(client1.toString()));
+    }
+
+    @Test
+    void getAddresses() {
+        Address address1 = new Address(0, "122.177.133.19", "GG-63-9d-3j-kc-2y", "model6", "Minsk");
+        client.addAddress(address1);
+
+        assertTrue(client.getAddresses().get(0).equals(address1));
+    }
+
+    @Test
+    void addAddress() {
+        Address address1 = new Address(0, "122.177.133.19", "GG-63-9d-3j-kc-2y", "model6", "Minsk");
+        client.addAddress(address1);
+
+        assertTrue(client.getAddresses().get(0).equals(address1));
     }
 }

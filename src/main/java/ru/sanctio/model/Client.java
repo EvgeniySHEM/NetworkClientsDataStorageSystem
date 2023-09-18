@@ -70,6 +70,10 @@ public class Client implements Serializable {
     }
 
     public void setAdded(String date) {
+        if (date == null) {
+            added = LocalDate.now().toString();
+            return;
+        }
         LocalDate localDate = LocalDate.parse(date);
         if (localDate.isBefore(LocalDate.EPOCH) || localDate.isAfter(LocalDate.now()))
             throw new IllegalArgumentException("You entered an incorrect year");

@@ -11,7 +11,7 @@ class AddressTest {
 
     @BeforeEach
     void initAddress() {
-        address = new Address("122.177.133.19", "GG-63-9d-3j-kc-2y", "model6", "Minsk");
+        address = new Address(0, "122.177.133.19", "GG-63-9d-3j-kc-2y", "model6", "Minsk");
     }
 
     @Test
@@ -252,5 +252,60 @@ class AddressTest {
                 assertThrows(IllegalArgumentException.class, () -> address.setAddress(adr));
 
         assertEquals(message, exception.getMessage());
+    }
+
+    @Test
+    void testEquals_ShouldReturnTrue() {
+        Address address1 = new Address(0, "122.177.133.19", "GG-63-9d-3j-kc-2y", "model6", "Minsk");
+
+        assertEquals(address, address1);
+    }
+
+    @Test
+    void testEquals_ShouldReturnTrue2() {
+
+        assertEquals(address, address);
+    }
+
+    @Test
+    void testEquals_ShouldReturnFalse() {
+        Address address1 = new Address(0, "111.177.133.19", "pp-63-9d-3j-kc-2y", "model1", "Tomsk");
+
+        assertNotEquals(address, address1);
+    }
+
+    @Test
+    void testEquals_ShouldReturnFalseNull() {
+        Address address1 = null;
+
+        assertNotEquals(address, address1);
+    }
+
+    @Test
+    void testHashCode_ShouldReturnTrue() {
+        Address address1 = new Address(0, "122.177.133.19", "GG-63-9d-3j-kc-2y", "model6", "Minsk");
+
+        assertEquals(address.hashCode(), address1.hashCode());
+    }
+
+    @Test
+    void testHashCode_ShouldReturnFalse() {
+        Address address1 = new Address(1, "111.177.133.19", "GG-63-9d-3j-kc-2y", "model6", "Tomsk");
+
+        assertNotEquals(address.hashCode(), address1.hashCode());
+    }
+
+    @Test
+    void testToString_ShouldReturnTrue() {
+        Address address1 = new Address(0, "122.177.133.19", "GG-63-9d-3j-kc-2y", "model6", "Minsk");
+
+        assertEquals(address.toString(), address1.toString());
+    }
+
+    @Test
+    void testToString_ShouldReturnFalse() {
+        Address address1 = new Address(1, "111.177.133.19", "GG-63-9d-3j-kc-2y", "model6", "Tomsk");
+
+        assertNotEquals(address.toString(), address1.toString());
     }
 }
