@@ -40,7 +40,7 @@ class DBManagerDeleteImplTest {
     private Address address2;
 
     @Container
-    static PostgreSQLContainer<?> postgres =
+    PostgreSQLContainer<?> postgres =
             new PostgreSQLContainer<>(DockerImageName.parse("postgres:14-alpine"));
 
     @BeforeAll
@@ -48,7 +48,10 @@ class DBManagerDeleteImplTest {
         dbManagerDelete = new DBManagerDeleteImpl();
         dbManagerSelect = new DBManagerSelectImpl();
         dbManagerCreate = new DBManagerCreateImpl();
+    }
 
+    @BeforeEach
+    void createClientAndAddress() {
         config = new HikariConfig();
         config.setJdbcUrl(postgres.getJdbcUrl());
         config.setUsername(postgres.getUsername());
@@ -67,10 +70,7 @@ class DBManagerDeleteImplTest {
         } catch (SQLException | FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-    }
 
-    @BeforeEach
-    void createClientAndAddress() {
         client = new Client(1, "Паша", "Физическое лицо", "2023-05-13");
         address = new Address(1, "111.111.111.111", "dd-dd-dd-dd-dd-dd", "model1",
                 "Minsk", client);
@@ -90,5 +90,14 @@ class DBManagerDeleteImplTest {
 
         assertEquals(1, allInformation.size());
         assertEquals(address.getId(), allInformation.get(0).getId());
+    }
+
+    @Test
+    void deleteAddressById_ShouldNotDeleteAnyElement() {
+        ReflectionTestUtils.setField(dbManagerDelete, "dbManagerSelect", dbManagerSelect);
+        dbManagerDelete.deleteAddressById("3");
+        List<Address> allInformation = dbManagerSelect.getAllInformation();
+
+        assertEquals(2, allInformation.size());
     }
 }
