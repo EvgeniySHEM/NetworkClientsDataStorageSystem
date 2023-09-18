@@ -150,6 +150,13 @@ class ClientTest {
     }
 
     @Test
+    void testEquals_ShouldReturnFalse2() {
+        Client client1 = new Client(1, "Паша", "Физическое лицо", "2023-05-13");
+
+        assertNotEquals(client, client1);
+    }
+
+    @Test
     void testEquals_ShouldReturnFalseIfClientNull() {
         Client client1 = null;
 

@@ -268,8 +268,36 @@ class AddressTest {
     }
 
     @Test
-    void testEquals_ShouldReturnFalse() {
-        Address address1 = new Address(0, "111.177.133.19", "pp-63-9d-3j-kc-2y", "model1", "Tomsk");
+    void testEquals_ShouldReturnFalseId() {
+        Address address1 = new Address(1, "122.177.133.19", "GG-63-9d-3j-kc-2y", "model6", "Minsk");
+
+        assertNotEquals(address, address1);
+    }
+
+    @Test
+    void testEquals_ShouldReturnFalseIp() {
+        Address address1 = new Address(0, "111.177.133.19", "GG-63-9d-3j-kc-2y", "model6", "Minsk");
+
+        assertNotEquals(address, address1);
+    }
+
+    @Test
+    void testEquals_ShouldReturnFalseMac() {
+        Address address1 = new Address(0, "122.177.133.19", "pp-63-9d-3j-kc-2y", "model6", "Minsk");
+
+        assertNotEquals(address, address1);
+    }
+
+    @Test
+    void testEquals_ShouldReturnFalseModel() {
+        Address address1 = new Address(0, "122.177.133.19", "GG-63-9d-3j-kc-2y", "model1", "Minsk");
+
+        assertNotEquals(address, address1);
+    }
+
+    @Test
+    void testEquals_ShouldReturnFalseAddress() {
+        Address address1 = new Address(0, "122.177.133.19", "GG-63-9d-3j-kc-2y", "model6", "Tomsk");
 
         assertNotEquals(address, address1);
     }
