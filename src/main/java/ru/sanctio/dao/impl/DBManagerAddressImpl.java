@@ -12,6 +12,7 @@ import java.util.List;
 
 @Singleton
 public class DBManagerAddressImpl implements DBManagerAddress {
+
     @Override
     public List<Address> getAllInformation() {
         try (Connection con = DataSource.getConnection();
@@ -25,7 +26,7 @@ public class DBManagerAddressImpl implements DBManagerAddress {
         }
     }
 
-    public List<Address> readAddressesFromResultSet(ResultSet resultSet) throws SQLException {
+    private List<Address> readAddressesFromResultSet(ResultSet resultSet) throws SQLException {
         List<Address> res = new ArrayList<>();
         while (resultSet.next()) {
             res.add(new Address(resultSet.getInt(1), resultSet.getString(2),
