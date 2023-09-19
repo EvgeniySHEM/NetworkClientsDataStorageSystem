@@ -15,10 +15,9 @@ import ru.sanctio.dao.DataSource;
 import ru.sanctio.model.Address;
 import ru.sanctio.model.Client;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.Reader;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -61,10 +60,11 @@ class DBManagerClientImplTest {
 
         try {
             ScriptRunner scriptRunner = new ScriptRunner(DataSource.getConnection());
-            Reader reader = new BufferedReader(new FileReader("/Users/evgeniysharychenkov" +
-                    "/IdeaProjects/NetworkClientsDataStorageSystem/src/test/resources/create.sql"));
+            URL resource = getClass().getClassLoader().getResource("create.sql");
+            assert resource != null;
+            Reader reader = new BufferedReader(new FileReader(new File(resource.toURI())));
             scriptRunner.runScript(reader);
-        } catch (SQLException | FileNotFoundException e) {
+        } catch (SQLException | FileNotFoundException | URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }

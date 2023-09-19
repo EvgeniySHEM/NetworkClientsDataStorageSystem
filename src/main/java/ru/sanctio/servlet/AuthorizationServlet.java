@@ -18,7 +18,9 @@ public class AuthorizationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         boolean check = userService.checkUser(request.getParameter("username"), request.getParameter("password"));
+
         if(check) {
             request.getRequestDispatcher("/ViewListServlet").forward(request, response);
         } else {
