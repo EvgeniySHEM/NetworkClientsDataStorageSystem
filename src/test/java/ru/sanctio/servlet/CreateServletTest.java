@@ -8,7 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.sanctio.service.CreateService;
+import ru.sanctio.service.ClientService;
 
 import java.io.IOException;
 
@@ -21,7 +21,7 @@ class CreateServletTest {
     @InjectMocks
     private CreateServlet createServlet;
     @Mock
-    private CreateService createService;
+    private ClientService clientService;
     @Mock
     private HttpServletRequest request;
     @Mock
@@ -29,7 +29,7 @@ class CreateServletTest {
 
     @Test
     void doPost_servletSendRedirectToViewListServlet() throws ServletException, IOException {
-        when(createService.createNewClient(any(), any())).thenReturn(true);
+        when(clientService.createNewClient(any(), any())).thenReturn(true);
 
         createServlet.doPost(request, response);
 
@@ -38,7 +38,7 @@ class CreateServletTest {
 
     @Test
     void doPost_servletSendError() throws ServletException, IOException {
-        when(createService.createNewClient(any(), any())).thenReturn(false);
+        when(clientService.createNewClient(any(), any())).thenReturn(false);
 
         createServlet.doPost(request, response);
 
@@ -47,7 +47,7 @@ class CreateServletTest {
 
     @Test
     void doPost_servletNullPointerExceptionSendError() throws ServletException, IOException {
-        when(createService.createNewClient(any(), any()))
+        when(clientService.createNewClient(any(), any()))
                 .thenThrow(new NullPointerException("NullPointerException"));
 
         createServlet.doPost(request, response);
@@ -57,7 +57,7 @@ class CreateServletTest {
 
     @Test
     void doPost_servletIllegalArgumentExceptionSendError() throws ServletException, IOException {
-        when(createService.createNewClient(any(), any()))
+        when(clientService.createNewClient(any(), any()))
                 .thenThrow(new IllegalArgumentException("IllegalArgumentException"));
 
         createServlet.doPost(request, response);

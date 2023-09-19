@@ -5,6 +5,8 @@ import ru.sanctio.model.Address;
 import ru.sanctio.model.Client;
 
 @Local
-public interface DBManagerCreate {
+public interface DBManagerClient {
+
     boolean createNewClient(Client newClient, Address newAddress);
+    boolean update(Client newClient, Address newAddress);
 }

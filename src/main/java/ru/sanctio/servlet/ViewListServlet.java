@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import ru.sanctio.model.dto.AddressDTO;
-import ru.sanctio.service.SelectService;
+import ru.sanctio.service.AddressService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +16,7 @@ import java.util.List;
 @WebServlet(name = "ViewListServlet", value = "/ViewListServlet")
 public class ViewListServlet extends HttpServlet {
     @EJB
-    private SelectService selectService;
+    private AddressService addressService;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,7 +32,7 @@ public class ViewListServlet extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        List<AddressDTO> filteredList = selectService.getSortedData();
+        List<AddressDTO> filteredList = addressService.getSortedData();
 
         PrintWriter out = response.getWriter();
         out.println("<html><body>");

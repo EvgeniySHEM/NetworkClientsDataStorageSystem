@@ -11,7 +11,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.sanctio.model.dto.AddressDTO;
 import ru.sanctio.model.dto.ClientDTO;
-import ru.sanctio.service.UpdateService;
+import ru.sanctio.service.AddressService;
+import ru.sanctio.service.ClientService;
 
 import java.io.IOException;
 
@@ -25,14 +26,15 @@ class UpdateServletTest {
     @InjectMocks
     private UpdateServlet updateServlet;
     @Mock
-    private UpdateService updateService;
+    private AddressService addressService;
+    @Mock
+    private ClientService clientService;
     @Mock
     private HttpServletRequest request;
     @Mock
     private HttpServletResponse response;
     @Mock
     private RequestDispatcher requestDispatcher;
-
 
 
     @Test
@@ -50,19 +52,19 @@ class UpdateServletTest {
         AddressDTO addressDTO = new AddressDTO(0, "ip", "mac", "model", "address",
                 new ClientDTO(0, "name", "type", "added"));
 
-        when(updateService.selectAddress(any())).thenReturn(addressDTO);
+        when(addressService.selectAddressById(any())).thenReturn(addressDTO);
         when(request.getRequestDispatcher(JSP)).thenReturn(requestDispatcher);
 
         updateServlet.doGet(request, response);
 
         verify(request, times(1)).getParameter(any());
-        verify(updateService, times(1)).selectAddress(request.getParameter(anyString()));
+        verify(addressService, times(1)).selectAddressById(request.getParameter(anyString()));
         verify(request, times(1)).setAttribute(anyString(), eq(addressDTO));
     }
 
     @Test
     void doPost_servletShouldSendRedirectViewListServlet() throws ServletException, IOException {
-        when(updateService.updateClient(any(), any())).thenReturn(true);
+        when(clientService.updateClient(any(), any())).thenReturn(true);
         when(request.getParameter(anyString())).thenReturn("0");
 
         updateServlet.doPost(request, response);
@@ -72,7 +74,7 @@ class UpdateServletTest {
 
     @Test
     void doPost_servletShouldSendError() throws ServletException, IOException {
-        when(updateService.updateClient(any(), any())).thenReturn(false);
+        when(clientService.updateClient(any(), any())).thenReturn(false);
         when(request.getParameter(anyString())).thenReturn("0");
 
         updateServlet.doPost(request, response);
@@ -85,7 +87,7 @@ class UpdateServletTest {
     void doPost_servletNullPointerExceptionSendError() throws ServletException, IOException {
         when(request.getParameter(anyString())).thenReturn("0");
 
-        when(updateService.updateClient(any(), any()))
+        when(clientService.updateClient(any(), any()))
                 .thenThrow(new NullPointerException("NullPointerException"));
 
         updateServlet.doPost(request, response);
@@ -97,7 +99,7 @@ class UpdateServletTest {
     void doPost_servletIllegalArgumentExceptionSendError() throws ServletException, IOException {
         when(request.getParameter(anyString())).thenReturn("0");
 
-        when(updateService.updateClient(any(), any()))
+        when(clientService.updateClient(any(), any()))
                 .thenThrow(new IllegalArgumentException("IllegalArgumentException"));
 
         updateServlet.doPost(request, response);

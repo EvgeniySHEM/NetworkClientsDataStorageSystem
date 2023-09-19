@@ -8,14 +8,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import ru.sanctio.model.dto.AddressDTO;
 import ru.sanctio.model.dto.ClientDTO;
-import ru.sanctio.service.UpdateService;
+import ru.sanctio.service.AddressService;
+import ru.sanctio.service.ClientService;
 
 import java.io.IOException;
 
 @WebServlet(name = "UpdateServlet", value = "/UpdateServlet")
 public class UpdateServlet extends HttpServlet {
+
     @EJB
-    private UpdateService updateService;
+    private AddressService addressService;
+
+    @EJB
+    private ClientService clientService;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,7 +29,7 @@ public class UpdateServlet extends HttpServlet {
 
         String addressId = request.getParameter("addressId");
 
-        AddressDTO address = updateService.selectAddress(addressId);
+        AddressDTO address = addressService.selectAddressById(addressId);
 
         request.setAttribute("address", address);
 
@@ -49,7 +54,7 @@ public class UpdateServlet extends HttpServlet {
                 clientDTO);
 
         try {
-            if (updateService.updateClient(clientDTO, addressDTO)) {
+            if (clientService.updateClient(clientDTO, addressDTO)) {
                 response.sendRedirect("ViewListServlet");
             } else {
                 response.sendError(490, "Клиент с таким адресом уже есть в базе данных");

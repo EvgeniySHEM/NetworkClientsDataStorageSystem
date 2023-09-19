@@ -8,7 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.sanctio.service.SelectService;
+import ru.sanctio.service.AddressService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,7 +20,7 @@ class ViewListServletTest {
     @InjectMocks
     private ViewListServlet viewListServlet;
     @Mock
-    private SelectService selectService;
+    private AddressService addressService;
     @Mock
     private HttpServletRequest request;
     @Mock
@@ -32,7 +32,7 @@ class ViewListServletTest {
 
         viewListServlet.doGet(request, response);
 
-        verify(selectService, times(1)).getSortedData();
+        verify(addressService, times(1)).getSortedData();
     }
 
     @Test
@@ -41,6 +41,6 @@ class ViewListServletTest {
 
         viewListServlet.doPost(request, response);
 
-        verify(selectService, times(1)).getSortedData();
+        verify(addressService, times(1)).getSortedData();
     }
 }

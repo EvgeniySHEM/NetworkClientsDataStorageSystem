@@ -7,8 +7,10 @@ import ru.sanctio.model.dto.AddressDTO;
 import java.util.List;
 
 @Local
-public interface SelectService {
-
-    List<Address> getData();
+public interface AddressService {
     List<AddressDTO> getSortedData();
+
+    AddressDTO selectAddressById(String addressId);
+
+    void deleteAddress(String addressId);
 }

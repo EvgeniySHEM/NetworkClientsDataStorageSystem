@@ -8,14 +8,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import ru.sanctio.model.dto.AddressDTO;
 import ru.sanctio.model.dto.ClientDTO;
-import ru.sanctio.service.CreateService;
+import ru.sanctio.service.ClientService;
 
 import java.io.IOException;
 
 @WebServlet(name = "Create", value = "/Create")
 public class CreateServlet extends HttpServlet {
+
     @EJB
-    private CreateService createService;
+    private ClientService clientService;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,7 +35,7 @@ public class CreateServlet extends HttpServlet {
                 clientDTO);
 
         try {
-            if (createService.createNewClient(clientDTO, addressDTO)) {
+            if (clientService.createNewClient(clientDTO, addressDTO)) {
                 response.sendRedirect("ViewListServlet");
             } else {
                 response.sendError(490, "Клиент с таким адресом уже есть в базе данных");

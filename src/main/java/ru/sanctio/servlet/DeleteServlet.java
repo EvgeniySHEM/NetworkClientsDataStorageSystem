@@ -6,14 +6,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import ru.sanctio.service.DeleteService;
+import ru.sanctio.service.AddressService;
 
 import java.io.IOException;
 
 @WebServlet(name = "Delete", value = "/Delete")
 public class DeleteServlet extends HttpServlet {
     @EJB
-    private DeleteService deleteService;
+    private AddressService addressService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,7 +23,7 @@ public class DeleteServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String addressId = request.getParameter("addressId");
-        deleteService.deleteAddress(addressId);
+        addressService.deleteAddress(addressId);
         response.sendRedirect("ViewListServlet");
     }
 }

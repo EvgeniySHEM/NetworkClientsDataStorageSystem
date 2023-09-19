@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.sanctio.service.DeleteService;
+import ru.sanctio.service.AddressService;
 
 import java.io.IOException;
 
@@ -24,7 +24,7 @@ class DeleteServletTest {
     @Spy
     private DeleteServlet deleteServletSpy;
     @Mock
-    private DeleteService deleteService;
+    private AddressService addressService;
     @Mock
     private HttpServletRequest request;
     @Mock
@@ -34,7 +34,7 @@ class DeleteServletTest {
     void doDelete_servletSendRedirectToViewListServlet() throws ServletException, IOException {
         deleteServlet.doDelete(request, response);
 
-        verify(deleteService, times(1)).deleteAddress(any());
+        verify(addressService, times(1)).deleteAddress(any());
         verify(response).sendRedirect(servlet);
     }
 
