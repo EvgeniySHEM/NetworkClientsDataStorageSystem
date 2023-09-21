@@ -79,7 +79,6 @@ class DBManagerAddressImplTest {
         dbManagerClient.createNewClient(client2, address2);
     }
 
-
     @Test
     void getAllInformation() {
         List<Address> allInformation = dbManagerAddress.getAllInformation();

@@ -25,9 +25,8 @@ public class DBManagerClientImpl implements DBManagerClient {
 
     private Client createClientEntity(Client newClient) {
         Optional<Client> client = findClientNotById(newClient);
-        if (client.isPresent()) {
-            return client.get();
-        } else {
+
+        return client.orElseGet(() -> {
             try (Connection con = DataSource.getConnection();
                  PreparedStatement preparedStatement = con.prepareStatement("insert into " +
                          "client (clientname, type, added) VALUES (?,?,?)")) {
@@ -42,7 +41,7 @@ public class DBManagerClientImpl implements DBManagerClient {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-        }
+        });
     }
 
     private Optional<Client> findClientNotById(Client client) {
@@ -125,7 +124,7 @@ public class DBManagerClientImpl implements DBManagerClient {
 
     @Override
     public boolean update(Client newClient, Address newAddress) {
-        if(updateClient(newClient) && updateAddress(newAddress)) {
+        if (updateClient(newClient) && updateAddress(newAddress)) {
             return true;
         }
         return false;
